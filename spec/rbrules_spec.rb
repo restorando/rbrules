@@ -7,8 +7,8 @@ class TestRbRules < Minitest::Unit::TestCase
 
   def setup
     @rb_rules = RbRules.new do
-      rule(:hello) { |param| param == 'hello' }
-      rule(:world) { |param| param == 'world' }
+      rule(:hello) { |param| param =~ /hello/ }
+      rule(:world) { |param| param =~ /world/ }
     end
   end
 
@@ -20,6 +20,7 @@ class TestRbRules < Minitest::Unit::TestCase
   def test_all?
     refute rb_rules.all?('hello')
     refute rb_rules.all?('world')
+    assert rb_rules.all?('hello world')
   end
 
   def test_none?
@@ -29,28 +30,15 @@ class TestRbRules < Minitest::Unit::TestCase
 
 end
 
-class TestSingleton < Minitest::Unit::TestCase
-
-  attr_reader :rb_rules
+class TestSingleton < TestRbRules
 
   def setup
-    RbRules[:test].rule(:hello) { |param| param == 'hello' }
-    RbRules[:test].rule(:world) { |param| param == 'world' }
+    rb_rules.rule(:hello) { |param| param =~ /hello/ }
+    rb_rules.rule(:world) { |param| param =~ /world/ }
   end
 
-  def test_any?
-    assert RbRules[:test].any?('hello')
-    assert RbRules[:test].any?('world')
-  end
-
-  def test_all?
-    refute RbRules[:test].all?('hello')
-    refute RbRules[:test].all?('world')
-  end
-
-  def test_none?
-    assert RbRules[:test].none?('none')
-    refute RbRules[:test].none?('hello')
+  def rb_rules
+    RbRules[:test]
   end
 
 end
