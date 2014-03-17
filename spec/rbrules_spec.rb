@@ -6,9 +6,9 @@ class TestRbRules < Minitest::Unit::TestCase
   attr_reader :rb_rules
 
   def setup
-    @rb_rules = RbRules.new do
-      rule(:hello) { |param| param =~ /hello/ }
-      rule(:world) { |param| param =~ /world/ }
+    @rb_rules = RbRules.new do |rules|
+      rules.rule(:hello) { |param| param =~ /hello/ }
+      rules.rule(:world) { |param| param =~ /world/ }
     end
   end
 

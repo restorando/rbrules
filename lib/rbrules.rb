@@ -10,7 +10,7 @@ class RbRules
 
   def initialize(&block)
     @rules = []
-    instance_exec(&block) if block_given?
+    yield(self) if block_given?
   end
 
   def rule(name, &block)
