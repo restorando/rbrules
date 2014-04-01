@@ -17,6 +17,10 @@ class TestRbRules < Minitest::Unit::TestCase
     assert rb_rules.any?('world')
   end
 
+  def test_any_returns_rule
+    assert rb_rules.any?('hello').name == :hello
+  end
+
   def test_all?
     refute rb_rules.all?('hello')
     refute rb_rules.all?('world')
@@ -34,7 +38,7 @@ class TestSingleton < TestRbRules
 
   def setup
     rb_rules.rule(:hello) { |param| param =~ /hello/ }
-    rb_rules.rule(:world) { |param| param =~ /world/ }
+    rb_rules.rule ->(param) { param =~ /world/ }
   end
 
   def rb_rules
