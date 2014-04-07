@@ -13,19 +13,29 @@ class RbRules
     yield(self) if block_given?
   end
 
-  def rule(name, &block)
-    rules << Rule.new(name, block)
+  def rule(name_or_rule, &block)
+    if name_or_rule.respond_to? :call
+      rules << name_or_rule
+    else
+      rules << Rule.new(name_or_rule, block)
+    end
   end
 
-  %w[any? all? none?].each do |method_name|
+  %w[all? none?].each do |method_name|
     define_method method_name do |*args|
-      rules.public_send(method_name) { |rule| rule.assert(*args) }
+      rules.public_send(method_name) { |rule| rule.call(*args) }
+    end
+  end
+
+  def any?(*args)
+    rules.find do |rule|
+      rule.call(*args)
     end
   end
 
   class Rule < Struct.new(:name, :block)
 
-    def assert(*args); block.call(*args) end
+    def call(*args); block.call(*args) end
 
   end
 end
