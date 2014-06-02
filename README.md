@@ -1,7 +1,7 @@
 # RbRules
 
 This library simplifies a rule set definition that can later be used to check if they
-are satisfied for a given object and or find the rule that a given object doesn't satisfy.
+are satisfied for a given object or to find the rule that a given object doesn't satisfy.
 
 ## Installation
 
@@ -22,17 +22,27 @@ Or install it yourself as:
 Define your ruleset:
 
 ```ruby
-@my_house_my_rules = RbRules.new do |rules|
-  rules.rule(:hello) { |param| param =~ /hello/ }
-  rules.rule(:world) { |param| param =~ /world/ }
+MY_HOUSE_MY_RULES = RbRules.new do |rules|
+  rules.rule(:smoke) { |age| age > 21 }
+  rules.rule(:sleep) { |age| age.even? }
 end
 ```
 
 Test your object
 
 ```ruby
-@my_house_my_rules.all? "hello world" # => true
-@my_house_my_rules.none? "good bye cruel world!" # => false
+MY_HOUSE_MY_RULES.all? 22 # => true
+MY_HOUSE_MY_RULES.none? 12 # => false
+```
+
+If you don't want to pollute your global namespace to define global rules, you can give
+your a name to your rule set like this:
+
+```ruby
+RbRules[:salute].rule(:hawaiian) {|string| string =~ /aloha/i }
+RbRules[:salute].rule(:english) {|string| string =~ /hello|good bye/i }
+
+RbRules[:salute].any? "Aloha world!"
 ```
 
 You can also define your custom rules (which should respond to `#call(obj)`) in case

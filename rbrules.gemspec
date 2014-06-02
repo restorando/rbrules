@@ -5,7 +5,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 Gem::Specification.new do |spec|
   spec.name          = "rbrules"
   spec.version       = "0.0.2"
-  spec.authors       = ["Gabriel Schammah"]
+  spec.authors       = ["Gabriel Schammah", "Juan Barreneche"]
   spec.email         = ["devs@restorando.com"]
   spec.homepage      = "http://engineering.restorando.com"
   spec.description   = %q{Declare rule sets to check your objects against them later}
