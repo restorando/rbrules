@@ -6,10 +6,14 @@ Gem::Specification.new do |spec|
   spec.name          = "rbrules"
   spec.version       = "0.0.2"
   spec.authors       = ["Gabriel Schammah"]
-  spec.email         = ["gabriel@restorando.com"]
-  spec.description   = %q{TODO: Write a gem description}
-  spec.summary       = %q{TODO: Write a gem summary}
-  spec.homepage      = ""
+  spec.email         = ["devs@restorando.com"]
+  spec.homepage      = "http://engineering.restorando.com"
+  spec.description   = %q{Declare rule sets to check your objects against them later}
+  spec.summary       = <<-SUMMARY
+    This library simplifies a rule set definition that can later be used to check if they
+    are satisfied for a given object and or find the rule that a given object doesn't
+    satisfy.
+  SUMMARY
   spec.license       = "MIT"
 
   spec.files         = `git ls-files`.split($/)
@@ -18,4 +22,5 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_development_dependency "rake"
+  spec.add_development_dependency "pry"
 end
