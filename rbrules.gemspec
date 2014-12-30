@@ -4,7 +4,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
 Gem::Specification.new do |spec|
   spec.name          = "rbrules"
-  spec.version       = "0.0.2"
+  spec.version       = "0.1.0"
   spec.authors       = ["Gabriel Schammah", "Juan Barreneche"]
   spec.email         = ["devs@restorando.com"]
   spec.homepage      = "http://engineering.restorando.com"

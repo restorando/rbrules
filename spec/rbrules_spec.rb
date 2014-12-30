@@ -1,7 +1,7 @@
 require 'minitest/autorun'
 require './lib/rbrules'
 
-class TestRbRules < MiniTest::Unit::TestCase
+class TestRbRules < MiniTest::Test
 
   attr_reader :rb_rules
 

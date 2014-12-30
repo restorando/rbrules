@@ -1,3 +1,6 @@
+require "bundler/gem_tasks"
+
+desc "Run gem tests"
 task :test do
   require 'rake/testtask'
 
