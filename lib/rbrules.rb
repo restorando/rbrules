@@ -4,6 +4,17 @@ class RbRules
 
   @rule_sets = Hash.new { |hash, key| hash[key] = new }
 
+  def +(other)
+    self.class.new do |builder|
+      rules.each { |rule| builder.rule(rule) }
+      if other.is_a?(self.class)
+        other.rules.each { |rule| builder.rule(rule) }
+      else
+        builder.rule(other)
+      end
+    end
+  end
+
   def self.[](key)
     @rule_sets[key]
   end

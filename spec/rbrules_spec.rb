@@ -3,13 +3,17 @@ require './lib/rbrules'
 
 class TestRbRules < MiniTest::Test
 
-  attr_reader :rb_rules
+  attr_reader :rb_rules, :rb_rule_false, :rb_rule_true
 
   def setup
     @rb_rules = RbRules.new do |rules|
       rules.rule(:hello) { |param| param =~ /hello/ }
       rules.rule(:world) { |param| param =~ /world/ }
     end
+  end
+
+  def test_number_of_rules
+    assert_equal 2, rb_rules.rules.size
   end
 
   def test_any?
@@ -32,17 +36,27 @@ class TestRbRules < MiniTest::Test
     refute rb_rules.none?('hello')
   end
 
+  def test_sum
+
+    rb_rule_extra = RbRules.new do |rules|
+      rules.rule(:extra) { true }
+    end
+
+    combined_rules = rb_rules + rb_rule_extra
+
+    assert_equal 3, combined_rules.rules.size
+    assert rb_rule_extra.rules.all? { |r| combined_rules.rules.include?(r) }
+  end
+
 end
 
 class TestSingleton < TestRbRules
 
-  def setup
-    rb_rules.rule(:hello) { |param| param =~ /hello/ }
-    rb_rules.rule ->(param) { param =~ /world/ }
-  end
+  RbRules[:test].rule(:hello) { |param| param =~ /hello/ }
+  RbRules[:test].rule ->(param) { param =~ /world/ }
 
-  def rb_rules
-    RbRules[:test]
+  def setup
+    @rb_rules = RbRules[:test]
   end
 
 end
