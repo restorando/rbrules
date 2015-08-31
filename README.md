@@ -71,14 +71,15 @@ You can add new rules to existing ones using the `ruby + ` operator.
 
 ```ruby
 new_rule = RbRules.new do |rules|
-   rules.rule(:baby) { |age| age < 5 }
+   rules.rule(:alive) { |age| age < 1000 }
 end
 
 NEW_HOUSE_RULES = MY_HOUSE_MY_RULES + new_rule
 
 NEW_HOUSE_RULES.all? 19 # => false
 NEW_HOUSE_RULES.all? 22 # => false
-NEW_HOUSE_RULES.all? 4 # => true
+NEW_HOUSE_RULES.any? 95 # => true
+NEW_HOUSE_RULES.all? 94 # => true
 ```
 
 
