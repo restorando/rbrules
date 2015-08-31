@@ -67,17 +67,18 @@ matching_rule.magic_number # => 3
 
 Adding new rules to an existing one
 
-You can add new rules to existing ones using the ```ruby + ``` operator.
+You can add new rules to existing ones using the `ruby + ` operator.
 
 ```ruby
 new_rule = RbRules.new do |rules|
-   rules.rule(:beer) { |age| age >= 18 }
+   rules.rule(:baby) { |age| age < 5 }
 end
 
 NEW_HOUSE_RULES = MY_HOUSE_MY_RULES + new_rule
 
 NEW_HOUSE_RULES.all? 19 # => false
-NEW_HOUSE_RULES.all? 22 # => true
+NEW_HOUSE_RULES.all? 22 # => false
+NEW_HOUSE_RULES.all? 4 # => true
 ```
 
 

@@ -3,7 +3,7 @@ require './lib/rbrules'
 
 class TestRbRules < MiniTest::Test
 
-  attr_reader :rb_rules, :rb_rule_false, :rb_rule_true
+  attr_reader :rb_rules
 
   def setup
     @rb_rules = RbRules.new do |rules|
