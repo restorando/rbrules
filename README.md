@@ -65,6 +65,24 @@ matching_rule = RbRules[:random_rules].any?(3)
 matching_rule.magic_number # => 3
 ```
 
+Adding new rules to an existing one
+
+You can add new rules to existing ones using the `ruby + ` operator.
+
+```ruby
+new_rule = RbRules.new do |rules|
+   rules.rule(:alive) { |age| age < 1000 }
+end
+
+NEW_HOUSE_RULES = MY_HOUSE_MY_RULES + new_rule
+
+NEW_HOUSE_RULES.all? 19 # => false
+NEW_HOUSE_RULES.all? 22 # => false
+NEW_HOUSE_RULES.any? 95 # => true
+NEW_HOUSE_RULES.all? 94 # => true
+```
+
+
 ## Contributing
 
 1. Fork it
